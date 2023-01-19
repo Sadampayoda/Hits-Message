@@ -17,8 +17,18 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
+            $table->enum('gender',[
+                'Men',
+                'Women'
+            ])->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->enum('level',[
+                'normal',
+                'pro',
+                'admin'
+            ])->nullable('normal');
+            $table->dateTime('tanggal_premium')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

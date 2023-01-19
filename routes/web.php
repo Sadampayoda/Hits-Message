@@ -1,6 +1,12 @@
 <?php
 
+use App\Http\Controllers\ApiController;
+use App\Http\Controllers\FriendController;
+use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RegistrasiController;
+// use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
+use App\Http\Controllers\PostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,7 +18,12 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    return view('welcome');
+Route::middleware('guest')->group( function(){
+    Route::get('/login',[LoginController::class,'index'])->name('login');
+    Route::get('/registrasi',[RegistrasiController::class,'index'])->name('regis');
+    Route::post('/registrasi/validasi',[RegistrasiController::class,'newAccountValidasi'])->name('regis.validasi');
+        
 });
+
+Route::resource('/', PostController::class);
+Route::resource('/search-friend',FriendController::class);
