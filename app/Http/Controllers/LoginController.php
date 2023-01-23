@@ -14,8 +14,9 @@ class LoginController extends Controller
 
     public function validasiAccount(Request $request)
     {
+        
         $Result = $request->validate([
-            'email' => 'required|unique:users',
+            'email' => 'required',
             'password' => 'required'
         ]);
 
@@ -24,5 +25,7 @@ class LoginController extends Controller
             $request->session()->regenerate();
             return redirect('/');
         }
+
+        return redirect()->back()->with('fail','email or password is wrong');
     }
 }

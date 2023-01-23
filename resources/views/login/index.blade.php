@@ -6,16 +6,35 @@
             <h1 class="text-center">Login Hits-Message</h1>
         </div>
     </div>
+    <div class="row justify-content-center">
+        <div class="col-5 ">
+            @if (session()->has('fail'))
+                <div class="alert alert-danger" role="alert">
+                    {{session('fail')}}
+                </div>
+            @endif
+        </div>
+    </div>
     <div class="row mt-4 justify-content-center">
         <div class="col-5">
-            <form action="">
+            <form action="{{ route('validasi') }}" method="POST">
+                @csrf
                 <div class="input-group mb-3">
                     <span class="input-group-text bg-danger" id="basic-addon1"><i class="bi bi-person-circle text-light "></i></span>
                     <input type="email" name="email" class="form-control" placeholder="Email" aria-label="Username" aria-describedby="basic-addon1">
                 </div>
+               
                 <div class="input-group mb-3">
                     <span class="input-group-text bg-primary" id="basic-addon1"><i class="bi bi-key-fill text-light"></i></span>
                     <input type="password" name="password" class="form-control" placeholder="password" aria-label="password" aria-describedby="basic-addon1">
+                </div>
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li><p class="text-danger">{{ $error }}</p></li>
+                    @endforeach
+                </ul>
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary">Masuk Login</button>
                 </div>
             </form>
         </div>

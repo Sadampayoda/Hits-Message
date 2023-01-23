@@ -22,8 +22,13 @@ Route::middleware('guest')->group( function(){
     Route::get('/login',[LoginController::class,'index'])->name('login');
     Route::get('/registrasi',[RegistrasiController::class,'index'])->name('regis');
     Route::post('/registrasi/validasi',[RegistrasiController::class,'newAccountValidasi'])->name('regis.validasi');
-        
+    Route::post('/login/validasi',[LoginController::class,'validasiAccount'])->name('validasi');
 });
+
+Route::middleware('auth')->group( function(){
+    
+});
+
 
 Route::resource('/', PostController::class);
 Route::resource('/search-friend',FriendController::class);

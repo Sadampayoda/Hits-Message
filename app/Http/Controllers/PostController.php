@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Post;
 
 class PostController extends Controller
 {
@@ -23,7 +24,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('home.post.newPost');
     }
 
     /**
@@ -34,7 +35,19 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validasiText = $request->validate([
+            'title' => 'required|min:5|max:20',
+            'pesan' => 'required|min:10|max:500'
+        ]);
+
+        Post::create([
+            'user_id' => auth()->user()->id,
+            'title' => $request->title,
+            'pesan' => $request->pesan
+        ]);
+
+        return redirect('/')->with('new-post','You success make new post');
+        
     }
 
     /**
